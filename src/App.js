@@ -8,6 +8,7 @@ class Pokemon extends React.Component {
   constructor() {
     super()
     this.state = {
+      pokemonLoaded: false,
       name: null,
       id: null,
       type: [],
@@ -16,26 +17,36 @@ class Pokemon extends React.Component {
   }
 
   getNewPokemon() {
-    console.log("getting a new pokemon...")
-    this.setState({
-      name: "Bulbasaur",
-      id: "1",
-      type: ["grass", "poison"],
-      sprite: "coming soon...",
+    const url = "https://pokeapi.co/api/v2/pokemon/1"
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+        this.setState({
+          name: data.name,
+          id: data.id,
+          type: data["types"][0]["type"]["name"],
+          sprite: "coming soon...",
+          pokemonLoaded: true,
+      })
     })
   }
   
   render () {
     return (
       <div>
-        <h1>Pokemon API</h1>
-        <p>{this.state.name}</p>
-        <p>Pokedex no.: {this.state.id}</p>
-        <ol> Type:
-          <li>{this.state.type}</li>
-          <li>{this.state.type}</li>
-        </ol>
-        <p>{this.state.sprite}</p>
+        {
+          this.state.pokemonLoaded &&
+            <div>
+              <h1>Pokemon API</h1>
+              <p>{this.state.name}</p>
+              <p>Pokedex no.: {this.state.id}</p>
+              <ol> Type:
+                <li>{this.state.type}</li>
+              </ol>
+              <p>{this.state.sprite}</p>
+            </div>
+        }
         <button
           type="button"
           onClick={() => this.getNewPokemon()}
