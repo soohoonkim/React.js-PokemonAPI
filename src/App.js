@@ -3,8 +3,12 @@ import './App.css';
 import React from 'react';
 // import Item from './MyItem';
 
+function capitalize(word) {
+  return word[0].toUpperCase() + word.slice(1);
+}
+
 class Pokemon extends React.Component {
-  
+
   constructor() {
     super()
     this.state = {
@@ -17,16 +21,17 @@ class Pokemon extends React.Component {
   }
 
   getNewPokemon() {
-    const url = "https://pokeapi.co/api/v2/pokemon/1"
+    const randomPokemon = Math.round(Math.random() * 898)
+    const url = `https://pokeapi.co/api/v2/pokemon/${randomPokemon}`
     fetch(url)
       .then(response => response.json())
       .then(data => {
         console.log(data)
         this.setState({
-          name: data.name,
+          name: capitalize(data.name),
           id: data.id,
           type: data["types"][0]["type"]["name"],
-          sprite: "coming soon...",
+          sprite: data.sprites["front_default"],
           pokemonLoaded: true,
       })
     })
@@ -43,8 +48,13 @@ class Pokemon extends React.Component {
               <p>Pokedex no.: {this.state.id}</p>
               <ol> Type:
                 <li>{this.state.type}</li>
+                {/* {
+                  this.state.type.map(type => {
+                    return <li>{type}</li>
+                  })
+                } */}
               </ol>
-              <p>{this.state.sprite}</p>
+              <p><a href={this.state.sprite}>Link to Pokemon sprite</a></p>
             </div>
         }
         <button
