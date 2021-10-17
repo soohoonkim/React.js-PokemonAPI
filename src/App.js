@@ -25,12 +25,14 @@ class Pokemon extends React.Component {
       id: null,
       type: [],
       sprite: '',
+      spriteDisplay: null,
     }
   }
 
   getNewPokemon() {
     const randomPokemon = Math.round(Math.random() * 898)
     const url = `https://pokeapi.co/api/v2/pokemon/${randomPokemon}`
+    const spriteImage = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${randomPokemon}.png`
     fetch(url)
       .then(response => response.json())
       .then(data => {
@@ -40,6 +42,7 @@ class Pokemon extends React.Component {
           id: data.id,
           type: data.types,
           sprite: data.sprites["front_default"],
+          spriteDisplay: spriteImage,
           pokemonLoaded: true,
       })
     })
@@ -62,7 +65,8 @@ class Pokemon extends React.Component {
               <ol> Type:
                 {pokemonType}
               </ol>
-              <p><a href={this.state.sprite}>Link to {this.state.name}'s sprite</a></p>
+              {/* <p><a href={this.state.sprite}>Link to {this.state.name}'s sprite</a></p> */}
+              <img src={this.state.spriteDisplay} alt={this.state.name}></img>
             </div>
         }
         <button
