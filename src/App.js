@@ -4,9 +4,10 @@ import React from 'react';
 // import Item from './MyItem';
 
 class PokemonTypeRows extends React.Component {
+
   render () {
     return (
-      <li>{this.props.types["type"]["name"]}</li>
+      <li>{capitalize(this.props.types["type"]["name"])}</li>
     )
   }    
 }
@@ -61,12 +62,12 @@ class Pokemon extends React.Component {
             <div>
               <h1>Pokemon API</h1>
               <p>{this.state.name}</p>
-              <p>Pokedex no.: {this.state.id}</p>
-              <ol> Type:
+              <p>Pokedex No.: {this.state.id}</p>
+              <ul> Type:
                 {pokemonType}
-              </ol>
+              </ul>
               {/* <p><a href={this.state.sprite}>Link to {this.state.name}'s sprite</a></p> */}
-              <img src={this.state.spriteDisplay} alt={this.state.name}></img>
+              <img src={this.state.spriteDisplay} alt={this.state.name} className="PokemonImage"></img>
             </div>
         }
         <button

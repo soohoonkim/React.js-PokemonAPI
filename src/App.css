@@ -44,3 +44,8 @@
   padding: 20px;
   font-size: 25px;
 }
+
+.PokemonImage {
+  width: 192px;
+  height: 192px;
+}
